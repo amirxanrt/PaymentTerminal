@@ -1,0 +1,225 @@
+### Получение всех пользователей только ADMIN
+GET http://localhost:8080/users.getAll?limit=50&offset=0
+X-Login: admin
+X-Password: secret
+
+### Получение пользователя по id только ADMIN
+GET http://localhost:8080/users.getById?id=1
+X-Login: admin
+X-Password: secret
+
+### USER не может получить пользователя по id
+GET http://localhost:8080/users.getById?id=2
+X-Login: vasya
+X-Password: secret
+
+
+
+### РЕГИСТРАЦИЯ пользователя
+POST http://localhost:8080/users.register?login=masha&password=secret
+
+
+
+### USER получение информации о себе
+GET http://localhost:8080/users.me
+X-Login: vasya
+X-Password: secret
+
+### ANONYMOUS получение информации о себе
+GET http://localhost:8080/users.me
+
+
+
+### ADMIN может удалить любого
+GET http://localhost:8080/users.removeById?id=2
+X-Login: admin
+X-Password: secret
+
+### USER покупатель может Удалить себя
+GET http://localhost:8080/users.removeById?id=1
+X-Login: vasya
+X-Password: secret
+
+### ADMIN может восстановить любого, остальные нет
+GET http://localhost:8080/users.restoreById?id=2
+X-Login: admin
+X-Password: secret
+
+
+
+### ADMIN может получать все товары
+GET http://localhost:8080/products.getAll?limit=50&offset=0
+X-Login: admin
+X-Password: secret
+
+### Любой покупатель получает все товары
+GET http://localhost:8080/products.getAll?limit=50&offset=0
+
+### Любой ппокупатель может получить любой товар по id
+GET http://localhost:8080/products.getById?id=4
+
+
+
+### ANONYMOUS не может создавать товар
+GET http://localhost:8080/products.create?name=produсt&price=200&qty=100&photo=roskgf.png
+
+### USER покупатель не может создавать товар
+GET http://localhost:8080/products.create?name=produсt&price=200&qty=100&photo=roskgf.png
+X-Login: vasya
+X-Password: secret
+
+### ADMIN может создавать товар
+GET http://localhost:8080/products.create?name=produсt&price=200&qty=100&photo=roskqf.png
+X-Login: admin
+X-Password: secret
+
+
+### USER покупатель не может обновлять товары
+GET http://localhost:8080/products.update?id=3&name=produсt&price=200&qty=1&photo=roskgf.png
+X-Login: vasya
+X-Password: secret
+
+### USER покупатель не может удалять товары
+GET http://localhost:8080/products.removeById?id=3
+X-Login: vasya
+X-Password: secret
+
+### USER покупатель не может восстанавливать  товары
+GET http://localhost:8080/products.restoreById?id=3
+X-Login: vasya
+X-Password: secret
+
+### ADMIN может восстанавливать товары
+GET http://localhost:8080/products.restoreById?id=3
+X-Login: admin
+X-Password: secret
+
+### USER покупатель не может смотреть удалённые товары, только ADMIN
+GET http://localhost:8080/products.getAllRemoved?limit=50&offset=0
+X-Login: vasya
+X-Password: secret
+
+
+
+### Фото товара кирпич
+POST http://localhost:8080/media/upload-data
+Content-Type: image/png
+
+< ./brick.png
+
+### Фото товара кирпич
+GET http://localhost:8080/043f6b00-83ad-46fc-aa58-6754d82c0bce.png
+
+
+
+
+### Фото товара линолеум
+POST http://localhost:8080/media/upload-data
+Content-Type: image/png
+
+< ./linoleum.png
+
+### Фото товара линолеум
+GET http://localhost:8080/79e5adb3-8585-47bf-94a2-08f7ec322f37.png
+
+
+
+
+### Фото товара краска
+POST http://localhost:8080/media/upload-data
+Content-Type: image/png
+
+< ./paint.png
+
+### Фото товара краска
+GET http://localhost:8080/6606a00b-8e2a-4cd1-82fc-eedbc5ae64d0.png
+
+
+
+
+### Фото товара радиатор
+POST http://localhost:8080/media/upload-data
+Content-Type: image/png
+
+< ./radiator.png
+
+### Фото товара радиатор
+GET http://localhost:8080/96e07c6e-6c72-4c38-bc49-e6fc2a15b920.png
+
+
+
+### Фото QR coda "USER" Vasya
+POST http://localhost:8080/media/upload-data
+Content-Type: image/png
+
+< ./qrId1.png
+
+### Фото QR coda "USER" Vasya
+GET http://localhost:8080/3326f2d8-116c-4496-9f84-19949fba8724.png
+
+
+
+
+### ПОИСК товара
+GET http://localhost:8080/products.search?query=кирпич&language=russian&limit=50&offset=0
+
+
+### Покупка товара авторизированным покупателем
+GET http://localhost:8080/purchase.make?productId=1&qty=5
+X-Login: vasya
+X-Password: secret
+
+### Покупка товара "anonymous"
+GET http://localhost:8080/purchase.make?productId=1&qty=5
+
+### Покупка ADMIN
+GET http://localhost:8080/purchase.make?productId=1&qty=5
+X-Login: admin
+X-Password: secret
+
+
+
+
+
+
+### История покупки, bonus
+GET http://localhost:8080/purchase.getAll?limit=50&offset=0
+X-Login: admin
+X-Password: secret
+
+### Общая сумма покупок, также мин. среднее и максимальное значение
+GET http://localhost:8080/purchase.stats
+X-Login: admin
+X-Password: secret
+
+
+
+
+
+### Комментарии по продукту авторизированному покупателю
+GET http://localhost:8080/review?productId=1&review=comment
+X-Login: vasya
+X-Password: secret
+
+### Комментарии по продукту неавторизированному покупателю не пройдет
+GET http://localhost:8080/review?productId=1&review=comment
+
+
+### Все могут смотреть комментарий
+GET http://localhost:8080/review.getAll?limit=40&offset=0
+
+
+
+
+
+
+### Заведение бонусной карты и номера телефона
+GET http://localhost:8080/card.create?userId=1&city=Казань&phoneNumber=89196259697&bonusCard=7000116009698&qrCode=qrId1.png
+X-Login: admin
+X-Password: secret
+
+
+### Получение информации о бонусах
+GET http://localhost:8080/card.getAll?limit=50&offset=0
+X-Login: vasya
+X-Password: secret
