@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Payment terminal" />
+        <module name="payment-terminal" />
         <module name="PaymentTerminal" />
       </profile>
     </annotationProcessing>
